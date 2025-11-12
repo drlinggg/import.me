@@ -2,9 +2,9 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ "feat" ]
+    branches: [ "bruh" ]
   pull_request:
-    branches: [ "feat" ]
+    branches: [ "master" ]
   workflow_dispatch:
 
 permissions:
