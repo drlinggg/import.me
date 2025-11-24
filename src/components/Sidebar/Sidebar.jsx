@@ -1,10 +1,10 @@
 import FileList from './FileList'
 
-const Sidebar = () => {
+const Sidebar = ({ onRepoSelect, selectedRepoId }) => {
   return (
     <div className="sidebar">
       <h3>Most viewed:</h3>
-      <FileList />
+      <FileList onRepoSelect={onRepoSelect} selectedRepoId={selectedRepoId} />
     </div>
   )
 }
