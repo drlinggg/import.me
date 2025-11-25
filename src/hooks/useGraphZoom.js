@@ -6,7 +6,6 @@ export const useGraphZoom = () => {
     return d3.zoom()
       .scaleExtent([0.5, 3])
       .on('zoom', (event) => {
-        // transform будет применен в Graph.jsx
       })
   }, [])
 

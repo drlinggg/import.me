@@ -10,10 +10,8 @@ export const useMostViewed = () => {
       try {
         setLoading(true)
         
-        // Имитация загрузки с сервера
         await new Promise(resolve => setTimeout(resolve, 500))
         
-        // Моковые данные с githubUrl
         const mockData = [
           { id: 1, name: 'some_dude/ssh', views: 100500, githubUrl: 'https://github.com/some_dude/ssh' },
           { id: 2, name: 'some_dude/CPython', views: 5, githubUrl: 'https://github.com/some_dude/CPython' },
