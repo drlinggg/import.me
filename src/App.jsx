@@ -18,22 +18,33 @@ function App() {
     console.log('Выбран репозиторий:', repo)
     setSelectedRepo(repo)
     
-    // Если у репозитория есть githubUrl, используем его
     if (repo.githubUrl) {
       handleImport(repo.githubUrl)
     } else {
-      // Иначе формируем URL из имени репозитория
       const repoUrl = `https://github.com/${repo.name}`
       handleImport(repoUrl)
     }
   }
 
   return (
-    <div className="app">
+    <div className="app" style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header onImport={handleImport} />
-      <div className="content">
+      <div className="content" style={{ 
+        flex: 1, 
+        display: 'flex', 
+        overflow: 'hidden',
+        padding: '20px',
+        gap: '20px'
+      }}>
         <Sidebar onRepoSelect={handleRepoSelect} selectedRepoId={selectedRepo?.id} />
-        <Graph ref={graphRef} />
+        <div style={{ 
+          flex: 1, 
+          display: 'flex',
+          flexDirection: 'column',
+          minWidth: 0 // Для правильного сжатия
+        }}>
+          <Graph ref={graphRef} />
+        </div>
       </div>
     </div>
   )

@@ -1,4 +1,5 @@
 import { useMostViewed } from '../../hooks/useMostViewed';
+import './FileList.css';
 
 const FileList = ({ onRepoSelect, selectedRepoId }) => {
   const { mostViewed, loading, error } = useMostViewed()
@@ -29,13 +30,6 @@ const FileList = ({ onRepoSelect, selectedRepoId }) => {
           key={item.id} 
           className={`file-item ${selectedRepoId === item.id ? 'selected' : ''}`}
           onClick={() => handleRepoClick(item)}
-          style={{ 
-            cursor: 'pointer', 
-            padding: '8px', 
-            borderBottom: '1px solid #eee',
-            backgroundColor: selectedRepoId === item.id ? '#e3f5ff' : 'transparent',
-            transition: 'background-color 0.2s ease'
-          }}
         >
           <span className="file-name">{item.name}</span>
           <span className="file-count">{item.views}</span>

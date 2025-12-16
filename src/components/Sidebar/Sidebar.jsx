@@ -1,4 +1,5 @@
-import FileList from './FileList'
+import FileList from '../FileList/FileList'
+import './Sidebar.css'
 
 const Sidebar = ({ onRepoSelect, selectedRepoId }) => {
   return (

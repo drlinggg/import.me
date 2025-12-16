@@ -26,8 +26,9 @@ export const useGraphInitialization = () => {
       .selectAll('line')
       .data(graphData.links)
       .enter().append('line')
+      .attr('class', 'link')
       .attr('stroke', colors.links)
-      .attr('stroke-width', 2)
+      .attr('stroke-width', 1)
       .attr('marker-end', 'url(#arrow)')
 
     // Рисуем узлы
@@ -35,7 +36,8 @@ export const useGraphInitialization = () => {
       .selectAll('circle')
       .data(graphData.nodes)
       .enter().append('circle')
-      .attr('r', 18)
+      .attr('class', d => `node ${d.group === 1 ? 'internal' : 'external'}`)
+      .attr('r', d => d.radius || 18)
       .attr('fill', d => colors.nodes[d.group === 1 ? 'internal' : 'external'])
       .attr('stroke', '#FFF')
       .attr('stroke-width', 2)
@@ -47,6 +49,7 @@ export const useGraphInitialization = () => {
       .selectAll('text')
       .data(graphData.nodes)
       .enter().append('text')
+      .attr('class', 'node-label')
       .text(d => d.id)
       .attr('font-size', '11px')
       .attr('fill', colors.text)
@@ -55,12 +58,8 @@ export const useGraphInitialization = () => {
       .attr('font-weight', '600')
       .style('pointer-events', 'none')
 
-    // Настройка зума
-    const zoom = createZoom()
-    zoom.on('zoom', (event) => {
-      svg.selectAll('g').attr('transform', event.transform)
-    })
-    svg.call(zoom)
+    // ВАЖНО: Убираем вызов zoom здесь, т.к. он уже вызывается в Graph.jsx
+    // Настройка зума будет выполнена в основном компоненте Graph
 
     return { link, node, text }
   }, [])
