@@ -1,0 +1,84 @@
+.file-list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  gap: 8px;
+}
+
+.file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background: #fff;
+  border-radius: 10px;
+  font-size: 14px;
+  border: 1px solid #FED7E2;
+  min-height: 44px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.file-item:hover {
+  background-color: #f9f9f9;
+  transform: translateX(3px);
+}
+
+.file-item.selected {
+  background-color: #ffe6f2;
+  border-left: 3px solid #B83280;
+  box-shadow: 0 2px 5px rgba(182, 50, 128, 0.05);
+}
+
+.file-name {
+  color: #333;
+  flex: 1;
+}
+
+.file-item.selected .file-name {
+  color: #B83280;
+  font-weight: 600;
+}
+
+.file-count {
+  color: #666;
+  font-weight: 500;
+}
+
+.file-item.selected .file-count {
+  background: #B83280;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+.file-list-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  color: #B83280;
+  font-style: italic;
+}
+
+.file-list-error {
+  padding: 15px;
+  background: #fff5f9;
+  border-radius: 10px;
+  border: 1px solid #ffccdd;
+  color: #cc3366;
+  font-size: 13px;
+  text-align: center;
+}
+
+.file-list-error div:first-child {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.file-list-error div:last-child {
+  color: #996699;
+  font-size: 12px;
+  font-style: italic;
+}

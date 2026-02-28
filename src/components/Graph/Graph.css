@@ -1,0 +1,300 @@
+.visualization {
+  flex: 1;
+  position: relative;
+  background: #FFF7FD;
+  border: 1px solid #FED7E2;
+  border-radius: 15px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.graph-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFF7FD;
+  padding: 20px;
+}
+
+#dependency-graph {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  cursor: move;
+}
+
+.controls-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  background: rgba(255, 247, 253, 0.95);
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid #FED7E2;
+  box-shadow: 0 2px 10px rgba(182, 50, 128, 0.1);
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.control-button {
+  padding: 8px 16px;
+  background: #B83280;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.control-button:hover {
+  background: #702459;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(182, 50, 128, 0.3);
+}
+
+.graph-controls-overlay {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  pointer-events: none;
+}
+
+.graph-controls-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  background: rgba(255, 247, 253, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 12px 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(182, 50, 128, 0.1);
+  border: 1px solid #FED7E2;
+  pointer-events: all;
+  min-width: 600px;
+  max-width: 800px;
+}
+
+.graph-stats {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.stat-label {
+  color: #B83280;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.stat-value {
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  min-width: 40px;
+  text-align: center;
+  background: #B83280;
+  color: white;
+}
+
+.node-count {
+  background: #B83280;
+}
+
+.link-count {
+  background: #702459;
+}
+
+.scale {
+  background: #996699;
+}
+
+.graph-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  max-width: 250px;
+}
+
+.search-input {
+  padding: 8px 16px;
+  border: 1px solid #FED7E2;
+  border-radius: 8px;
+  font-size: 13px;
+  width: 100%;
+  transition: all 0.3s ease;
+  background: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #B83280;
+  box-shadow: 0 0 0 3px rgba(182, 50, 128, 0.1);
+}
+
+.search-input::placeholder {
+  color: #cc99cc;
+}
+
+.clear-search-btn {
+  background: #B83280;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.clear-search-btn:hover {
+  background: #702459;
+  transform: scale(1.1);
+}
+
+.highlight-info-panel {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(182, 50, 128, 0.95);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(182, 50, 128, 0.3);
+  z-index: 99;
+}
+
+.graph-legend {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(255, 247, 253, 0.95);
+  padding: 12px 15px;
+  border-radius: 8px;
+  font-size: 12px;
+  box-shadow: 0 2px 8px rgba(182, 50, 128, 0.1);
+  border: 1px solid #FED7E2;
+  min-width: 150px;
+  z-index: 99;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.legend-color {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.node-normal {
+  background: #B83280;
+}
+
+.node-highlighted {
+  background: #ff6b6b;
+}
+
+.node-found {
+  background: #ffd43b;
+  border: 2px solid #ff9900;
+}
+
+/* Остальные стили без изменений... */
+
+.controls-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  background: rgba(255, 247, 253, 0.95);
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid #FED7E2;
+  box-shadow: 0 2px 10px rgba(182, 50, 128, 0.1);
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.control-button {
+  padding: 8px 16px;
+  background: #B83280;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.control-button:hover {
+  background: #702459;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(182, 50, 128, 0.3);
+}
+
+/* Стили для D3 элементов - подсветка */
+.node.highlighted {
+  stroke: #ff6b6b;
+  stroke-width: 3px;
+  filter: drop-shadow(0 0 8px rgba(255, 107, 107, 0.6));
+}
+
+.node.found {
+  stroke: #ffd43b;
+  stroke-width: 3px;
+  stroke-dasharray: 5, 5;
+  animation: pulse 2s infinite;
+}
+
+.link.highlighted {
+  stroke: #ff6b6b;
+  stroke-width: 3px;
+  opacity: 1;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    stroke-width: 3px;
+  }
+  50% {
+    stroke-width: 4px;
+  }
+}
