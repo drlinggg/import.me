@@ -4,15 +4,19 @@ export const useGraphColors = () => {
   const colors = useMemo(() => ({
     nodes: {
       internal: '#F687B3',
-      external: '#B83280'
+      external: '#9F7AEA',
     },
-    links: '#D53F8C',
+    links: {
+      intraSub: 'rgba(184,50,128,0.75)',
+      intraTop: 'rgba(184,50,128,0.40)',
+      cross:    'rgba(140,100,220,0.25)',
+    },
     arrows: '#B83280',
-    text: '#702459'
+    text:   '#702459',
   }), [])
 
-  const getNodeColor = useCallback((group) => 
-    group === 1 ? colors.nodes.internal : colors.nodes.external
+  const getNodeColor = useCallback((group) =>
+    group === 2 ? colors.nodes.external : colors.nodes.internal
   , [colors])
 
   return { colors, getNodeColor }

@@ -1,65 +1,83 @@
 import { useCallback } from 'react'
 import * as d3 from 'd3'
 
+/**
+ * Classifies a link as 'intra-sub', 'intra-top', or 'cross' by comparing the
+ * packagePath / topPackage fields of source and target nodes.
+ */
+function linkClass(link, nodeById) {
+  const s = nodeById.get(typeof link.source === 'object' ? link.source.id : link.source)
+  const t = nodeById.get(typeof link.target === 'object' ? link.target.id : link.target)
+  if (!s || !t) return 'cross'
+  if (s.packagePath && t.packagePath && s.packagePath === t.packagePath) return 'intra-sub'
+  if (s.topPackage  && t.topPackage  && s.topPackage  === t.topPackage)  return 'intra-top'
+  return 'cross'
+}
+
 export const useGraphInitialization = () => {
-  const initializeGraph = useCallback((svg, graphData, colors, simulation, createDragHandler, createZoom) => {
-    // Очищаем предыдущий граф
-    svg.selectAll("*").remove()
+  const initializeGraph = useCallback((g, graphData, colors, simulation, createDragHandler) => {
+    // Fast lookup used for link classification at draw time.
+    const nodeById = new Map(graphData.nodes.map(n => [n.id, n]))
 
-    // Стрелки для направленного графа
-    svg.append('defs').selectAll('marker')
-      .data(['arrow'])
-      .enter().append('marker')
-      .attr('id', d => d)
-      .attr('viewBox', '0 -5 10 10')
-      .attr('refX', 25)
-      .attr('refY', 0)
-      .attr('markerWidth', 6)
-      .attr('markerHeight', 6)
-      .attr('orient', 'auto')
-      .append('path')
-      .attr('d', 'M0,-5L10,0L0,5')
-      .attr('fill', colors.arrows)
+    // ── Arrow markers — one per link class for distinct colours ─────────────
+    const markerDefs = [
+      { id: 'arrow-intra-sub', color: 'rgba(184,50,128,0.80)' },
+      { id: 'arrow-intra-top', color: 'rgba(184,50,128,0.45)' },
+      { id: 'arrow-cross',     color: 'rgba(140,100,220,0.30)' },
+    ]
 
-    // Рисуем связи
-    const link = svg.append('g')
+    const defs = g.append('defs')
+    for (const m of markerDefs) {
+      defs.append('marker')
+        .attr('id', m.id)
+        .attr('viewBox', '0 -4 8 8')
+        .attr('refX', 22)
+        .attr('refY', 0)
+        .attr('markerWidth', 5)
+        .attr('markerHeight', 5)
+        .attr('orient', 'auto')
+        .append('path')
+        .attr('d', 'M0,-4L8,0L0,4')
+        .attr('fill', m.color)
+    }
+
+    // ── Links ────────────────────────────────────────────────────────────────
+    const link = g.append('g')
       .selectAll('line')
       .data(graphData.links)
       .enter().append('line')
-      .attr('class', 'link')
-      .attr('stroke', colors.links)
-      .attr('stroke-width', 1)
-      .attr('marker-end', 'url(#arrow)')
+      .attr('class', d => `link link-${linkClass(d, nodeById)}`)
+      .attr('marker-end', d => `url(#arrow-${linkClass(d, nodeById)})`)
 
-    // Рисуем узлы
-    const node = svg.append('g')
+    // ── Nodes ────────────────────────────────────────────────────────────────
+    const nodeColor = (d) => d.group === 2 ? colors.nodes.external : colors.nodes.internal
+
+    const node = g.append('g')
       .selectAll('circle')
       .data(graphData.nodes)
       .enter().append('circle')
-      .attr('class', d => `node ${d.group === 1 ? 'internal' : 'external'}`)
-      .attr('r', d => d.radius || 18)
-      .attr('fill', d => colors.nodes[d.group === 1 ? 'internal' : 'external'])
+      .attr('class', d => `node ${d.group === 2 ? 'external' : 'internal'}`)
+      .attr('r', d => d.radius || 14)
+      .attr('fill', nodeColor)
       .attr('stroke', '#FFF')
-      .attr('stroke-width', 2)
+      .attr('stroke-width', 1.5)
       .style('cursor', 'pointer')
       .call(createDragHandler(simulation))
 
-    // Подписи узлов
-    const text = svg.append('g')
+    // ── Labels ───────────────────────────────────────────────────────────────
+    // Full dotted path label (e.g. myapp.models.user).
+    const text = g.append('g')
       .selectAll('text')
       .data(graphData.nodes)
       .enter().append('text')
       .attr('class', 'node-label')
-      .text(d => d.id)
-      .attr('font-size', '11px')
+      .text(d => d.label || d.id)
+      .attr('font-size', '9px')
+      .attr('font-weight', '500')
       .attr('fill', colors.text)
       .attr('text-anchor', 'middle')
-      .attr('dy', -22)
-      .attr('font-weight', '600')
+      .attr('dy', d => -(d.radius || 14) - 4)
       .style('pointer-events', 'none')
-
-    // ВАЖНО: Убираем вызов zoom здесь, т.к. он уже вызывается в Graph.jsx
-    // Настройка зума будет выполнена в основном компоненте Graph
 
     return { link, node, text }
   }, [])

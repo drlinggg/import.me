@@ -1,21 +1,27 @@
 .header {
   background: #FFF7FD;
-  padding: 20px;
+  padding: 16px 20px;
   border: 1px solid #FED7E2;
   border-radius: 15px;
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-between;
 }
 
 .import-section {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex: 1;
 }
 
 .logo {
   font-weight: bold;
   font-size: 18px;
   color: #333;
+  white-space: nowrap;
 }
 
 .import-input {
@@ -25,6 +31,12 @@
   border-radius: 8px;
   font-size: 14px;
   background: #fff;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.import-input:focus {
+  border-color: #B83280;
 }
 
 .import-action-button {
@@ -37,22 +49,120 @@
   font-size: 14px;
   font-weight: 600;
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .import-action-button:hover {
   background: #702459;
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(182, 50, 128, 0.3);
 }
 
+.auth-section {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.auth-loading {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #FED7E2;
+  border-top-color: #B83280;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.github-login-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #24292e;
+  color: white;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.github-login-button:hover {
+  background: #444d56;
+}
+
+.github-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #FED7E2;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.admin-badge {
+  background: #B83280;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.logout-button {
+  background: transparent;
+  color: #B83280;
+  border: 1px solid #FED7E2;
+  padding: 6px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.logout-button:hover {
+  background: #fff0f8;
+  border-color: #B83280;
+}
+
 @media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
   .import-section {
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
   }
-  
+
   .logo {
     text-align: center;
+  }
+
+  .auth-section {
+    justify-content: center;
   }
 }
