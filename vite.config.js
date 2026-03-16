@@ -8,7 +8,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'https://web-backend-lab-1drlinggg.onrender.com',
         changeOrigin: true,
       },
     },
