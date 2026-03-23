@@ -29,16 +29,23 @@ const RepoItem = ({ item, isSelected, onClick, user, likedIds, onToggleLike, onD
   const isAdmin = user?.role === 'admin'
   const isOwner = item.ownerId === user?.id
   const canDelete = isAdmin || isOwner
+  const isClickable = !item.id || item.isAnalyzed !== false
 
   return (
-    <div className={`file-item ${isSelected ? 'selected' : ''}`} onClick={() => onClick(item)}>
+    <div
+      className={`file-item ${isSelected ? 'selected' : ''} ${!isClickable ? 'unanalyzed' : ''}`}
+      onClick={() => isClickable && onClick(item)}
+      title={!isClickable ? 'Not yet analyzed — click import to analyze' : undefined}
+    >
       <div className="file-item-content">
         <span className="file-name">{item.name}</span>
         {item.description && <span className="file-desc">{item.description}</span>}
+        {item.isPrivate && <span className="repo-badge private">private</span>}
+        {item.isAnalyzed === false && <span className="repo-badge new">not analyzed</span>}
       </div>
       <div className="file-item-right">
         <span className="file-count">{item.views}</span>
-        {user && onToggleLike && (
+        {user && onToggleLike && item.id && (
           <button
             className={`like-btn ${isLiked ? 'liked' : ''}`}
             onClick={(e) => { e.stopPropagation(); onToggleLike(item.id) }}
@@ -47,7 +54,7 @@ const RepoItem = ({ item, isSelected, onClick, user, likedIds, onToggleLike, onD
             <HeartIcon filled={isLiked} />
           </button>
         )}
-        {canDelete && (
+        {canDelete && item.id && (
           <button
             className="delete-btn"
             onClick={(e) => { e.stopPropagation(); onDelete(item.id) }}
@@ -89,7 +96,7 @@ const FileList = ({
   }
 
   const itemProps = (item) => ({
-    key: item.id,
+    key: item.id ?? item.name,
     item,
     isSelected: selectedRepoId === item.id,
     onClick: onRepoSelect || (() => {}),
@@ -118,7 +125,7 @@ const FileList = ({
     if (!user) return <EmptyState message="Login to see your repositories" />
     if (mineLoading) return <div className="file-list-loading">Loading...</div>
     if (mineError) return <div className="file-list-error">Error: {mineError}</div>
-    if (!myRepos.length) return <EmptyState message="No owned repositories found" />
+    if (!myRepos.length) return <EmptyState message="No repositories found on GitHub" />
     return <div className="file-list">{myRepos.map((item) => <RepoItem {...itemProps(item)} />)}</div>
   }
 

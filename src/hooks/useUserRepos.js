@@ -1,6 +1,22 @@
 import { useState, useEffect, useCallback } from 'react'
 import { apiFetch, normalizeRepo } from '../utils/api'
 
+function normalizeGithubRepo(repo) {
+  return {
+    id: repo.id ?? repo.fullName,
+    name: repo.fullName ?? repo.name,
+    fullName: repo.fullName,
+    description: repo.description || '',
+    githubUrl: repo.url || `https://github.com/${repo.fullName}`,
+    views: repo.viewCount ?? 0,
+    stars: repo.stars ?? 0,
+    forks: repo.forks ?? 0,
+    ownerId: repo.ownerId,
+    isAnalyzed: repo.isAnalyzed ?? false,
+    isPrivate: repo.isPrivate ?? false,
+  }
+}
+
 export const useUserRepos = (user) => {
   const [repos, setRepos] = useState([])
   const [loading, setLoading] = useState(true)
@@ -16,11 +32,16 @@ export const useUserRepos = (user) => {
     try {
       setLoading(true)
       setError(null)
-      const data = await apiFetch('/api/user/my-repositories')
-      setRepos((data || []).map(normalizeRepo))
+      const data = await apiFetch('/api/user/github-repos')
+      setRepos((data || []).map(normalizeGithubRepo))
     } catch (err) {
-      setError(err.message)
-      setRepos([])
+      try {
+        const fallback = await apiFetch('/api/user/my-repositories')
+        setRepos((fallback || []).map(normalizeRepo))
+      } catch {
+        setError(err.message)
+        setRepos([])
+      }
     } finally {
       setLoading(false)
     }

@@ -131,6 +131,17 @@
   letter-spacing: 0.5px;
 }
 
+.admin-badge-btn {
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.admin-badge-btn:hover {
+  background: #702459;
+  transform: translateY(-1px);
+}
+
 .logout-button {
   background: transparent;
   color: #B83280;

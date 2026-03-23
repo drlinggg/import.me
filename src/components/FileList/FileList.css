@@ -32,6 +32,16 @@
   box-shadow: 0 2px 5px rgba(182, 50, 128, 0.08);
 }
 
+.file-item.unanalyzed {
+  opacity: 0.65;
+  cursor: default;
+}
+
+.file-item.unanalyzed:hover {
+  transform: none;
+  background-color: #fff;
+}
+
 .file-item-content {
   flex: 1;
   display: flex;
@@ -59,6 +69,27 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.repo-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 4px;
+  align-self: flex-start;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.repo-badge.private {
+  background: #f0f0f0;
+  color: #888;
+}
+
+.repo-badge.new {
+  background: #fff3e0;
+  color: #e07b00;
 }
 
 .file-item-right {

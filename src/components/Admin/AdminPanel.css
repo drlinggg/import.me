@@ -1,0 +1,218 @@
+.admin-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.admin-panel {
+  background: var(--bg-secondary, #1e1e2e);
+  border: 1px solid var(--border, #313244);
+  border-radius: 12px;
+  width: 700px;
+  max-width: 95vw;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border, #313244);
+}
+
+.admin-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary, #cdd6f4);
+}
+
+.admin-close {
+  background: none;
+  border: none;
+  color: var(--text-muted, #6c7086);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.admin-close:hover {
+  background: var(--bg-hover, #313244);
+  color: var(--text-primary, #cdd6f4);
+}
+
+.admin-tabs {
+  display: flex;
+  padding: 12px 20px 0;
+  gap: 8px;
+  border-bottom: 1px solid var(--border, #313244);
+}
+
+.admin-tab {
+  background: none;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  color: var(--text-muted, #6c7086);
+  font-size: 14px;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.admin-tab.active {
+  color: var(--accent, #89b4fa);
+  border-bottom-color: var(--accent, #89b4fa);
+}
+
+.admin-loading, .admin-error {
+  padding: 24px;
+  text-align: center;
+  color: var(--text-muted, #6c7086);
+  font-size: 14px;
+}
+
+.admin-error { color: var(--red, #f38ba8); }
+
+.admin-stats, .admin-users {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.stat-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--bg-tertiary, #181825);
+  border: 1px solid var(--border, #313244);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent, #89b4fa);
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--text-muted, #6c7086);
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.admin-section {
+  margin-bottom: 20px;
+}
+
+.admin-section-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary, #a6adc8);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.admin-table th {
+  text-align: left;
+  padding: 8px 12px;
+  color: var(--text-muted, #6c7086);
+  border-bottom: 1px solid var(--border, #313244);
+  font-weight: 500;
+}
+
+.admin-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border, #313244);
+  color: var(--text-primary, #cdd6f4);
+}
+
+.admin-table tr:last-child td { border-bottom: none; }
+
+.user-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-avatar-sm {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.role-admin {
+  background: rgba(243, 139, 168, 0.15);
+  color: var(--red, #f38ba8);
+}
+
+.role-user {
+  background: rgba(137, 180, 250, 0.1);
+  color: var(--accent, #89b4fa);
+}
+
+.role-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.role-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.role-count {
+  font-size: 14px;
+  color: var(--text-secondary, #a6adc8);
+}
+
+.delete-btn-sm {
+  background: none;
+  border: none;
+  color: var(--text-muted, #6c7086);
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.delete-btn-sm:hover {
+  background: rgba(243, 139, 168, 0.15);
+  color: var(--red, #f38ba8);
+}
